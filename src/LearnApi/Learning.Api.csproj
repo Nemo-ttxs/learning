@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>obj\Debug\netcoreapp3.1\Learning.Api.xml</DocumentationFile>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+	
+  <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <ProjectReference Include="..\Learning.IRepositories\Learning.IRepositories.csproj" />
+    <ProjectReference Include="..\Learning.IServices\Learning.IServices.csproj" />
+    <ProjectReference Include="..\Learning.Repositories\Learning.Repositories.csproj" />
+    <ProjectReference Include="..\Learning.Services\Learning.Services.csproj" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <None Update="appsettings.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
