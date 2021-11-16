@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using Learning.Common.Settings;
 using Learning.Common.Redis;
 using Learning.Common.Const;
+using Learning.Common.MQ;
 
 namespace Learning.Services
 {
@@ -27,7 +28,16 @@ namespace Learning.Services
             })
             .AsSelf()
             .SingleInstance()
-            .Keyed<RedisHelper>(AutofacKeyedConst.BusinessRedis); ;
+            .Keyed<RedisHelper>(AutofacKeyedConst.BusinessRedis);
+
+            builder.Register(context =>
+            {
+                var settings = context.Resolve<IOptionsMonitor<AppSettings>>().CurrentValue;
+                return new RabbitMqHelper(settings.RabbitMqConnection);
+            })
+            .AsSelf()
+            .SingleInstance()
+            .Keyed<RabbitMqHelper>(AutofacKeyedConst.BusinessMQ);
         }
     }
 }

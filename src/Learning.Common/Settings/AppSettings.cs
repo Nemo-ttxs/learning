@@ -9,6 +9,8 @@ namespace Learning.Common.Settings
         public DbSettings DbSettings { get; set; }
 
         public RedisSettings RedisSettings { get; set; }
+
+        public string RabbitMqConnection { get; set; }
     }
 
     public class DbSettings

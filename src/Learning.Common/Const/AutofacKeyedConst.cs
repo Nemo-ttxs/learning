@@ -12,5 +12,10 @@ namespace Learning.Common.Const
         /// 业务redis
         /// </summary>
         public const string BusinessRedis = "BusinessRedis";
+
+        /// <summary>
+        /// 业务主mq
+        /// </summary>
+        public const string BusinessMQ = "BusinessMQ";
     }
 }
