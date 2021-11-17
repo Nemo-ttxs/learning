@@ -1,6 +1,7 @@
 ﻿using Autofac.AttributeExtensions.Attributes;
 using Autofac.Features.AttributeFilters;
 using Learning.Common.Const;
+using Learning.Common.MQ;
 using Learning.Common.Redis;
 using Learning.IRepositories;
 using Learning.IServices;
@@ -17,11 +18,13 @@ namespace Learning.Services
     {
         private readonly ILearningRepository _learningRepository;
         private readonly RedisHelper _redisHelper;
+        private readonly RabbitMqHelper _rabbitMqHelper;
 
-        public LearningService(ILearningRepository learningRepository, [KeyFilter(AutofacKeyedConst.BusinessRedis)]RedisHelper redisHelper)
+        public LearningService(ILearningRepository learningRepository, [KeyFilter(AutofacKeyedConst.BusinessRedis)]RedisHelper redisHelper, [KeyFilter(AutofacKeyedConst.BusinessMQ)]RabbitMqHelper rabbitMqHelper)
         {
             _learningRepository = learningRepository;
             _redisHelper = redisHelper;
+            _rabbitMqHelper = rabbitMqHelper;
         }
 
         public async Task<List<StudyInfo>> TestMethod()
