@@ -6,6 +6,7 @@ using Learning.Common.Redis;
 using Learning.IRepositories;
 using Learning.IServices;
 using Learning.Models.ResponseModel;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +20,14 @@ namespace Learning.Services
         private readonly ILearningRepository _learningRepository;
         private readonly RedisHelper _redisHelper;
         private readonly RabbitMqHelper _rabbitMqHelper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public LearningService(ILearningRepository learningRepository, [KeyFilter(AutofacKeyedConst.BusinessRedis)]RedisHelper redisHelper, [KeyFilter(AutofacKeyedConst.BusinessMQ)]RabbitMqHelper rabbitMqHelper)
+        public LearningService(ILearningRepository learningRepository, [KeyFilter(AutofacKeyedConst.BusinessRedis)]RedisHelper redisHelper, [KeyFilter(AutofacKeyedConst.BusinessMQ)]RabbitMqHelper rabbitMqHelper, IHttpContextAccessor httpContextAccessor)
         {
             _learningRepository = learningRepository;
             _redisHelper = redisHelper;
             _rabbitMqHelper = rabbitMqHelper;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<List<StudyInfo>> TestMethod()

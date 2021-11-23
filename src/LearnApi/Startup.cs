@@ -46,6 +46,8 @@ namespace LearnApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            //_ = services.AddHttpContextAccessor();
             _ = services.AddApiVersioning(options =>
             {
                 options.ReportApiVersions = true;//可选配置，接口http响应头输出api版本信息
