@@ -1,4 +1,5 @@
-﻿using Learning.IServices;
+﻿using Learning.Api.Extensions;
+using Learning.IServices;
 using Learning.Models.ResponseModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -28,6 +29,7 @@ namespace Learning.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("get-study-list")]
+        [TestFilter]
         public Task<List<StudyInfo>> GetStudyList()
         {
             var res = _learningService.TestMethod();
