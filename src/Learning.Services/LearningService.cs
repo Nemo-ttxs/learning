@@ -1,5 +1,6 @@
 ﻿using Autofac.AttributeExtensions.Attributes;
 using Autofac.Features.AttributeFilters;
+using Learning.Common.Cache;
 using Learning.Common.Const;
 using Learning.Common.MQ;
 using Learning.Common.Redis;
@@ -32,7 +33,8 @@ namespace Learning.Services
 
         public async Task<List<StudyInfo>> TestMethod()
         {
-            var cacheValue = await _redisHelper.StringGetAsync<List<StudyInfo>>("test");
+            var cacheKey = CacheKeyManager.GetStudyList;
+            var cacheValue = await _redisHelper.StringGetAsync<List<StudyInfo>>(cacheKey);
             if (cacheValue?.Count > 0)
             {
                 return cacheValue;
@@ -40,14 +42,15 @@ namespace Learning.Services
             var list = await _learningRepository.GetStudyList();
             if (list?.Count > 0)
             {
-                await _redisHelper.StringSetAsync("test",list,TimeSpan.FromMinutes(30));
+                await _redisHelper.StringSetAsync(cacheKey, list,TimeSpan.FromMinutes(30));
             }
             return list?.Select(x => new StudyInfo 
             { 
                 Id = x.Id,
                 AddTime = x.AddTime,
                 Title = x.Title,
-                Content = x.Content }).ToList();
+                Content = x.Content
+            }).ToList();
         }
     }
 }
